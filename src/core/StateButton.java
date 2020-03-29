@@ -1,5 +1,5 @@
 package core;
 
 public enum StateButton {
-	PLAYING, STOP, RESTART, NEXT, DEFAULT
+	PLAYING, RESTART, NEXT, STOP
 }

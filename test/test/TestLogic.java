@@ -46,27 +46,27 @@ public class TestLogic {
         assertEquals(5, world.checkCell(1,0));
     }
 	
-//    @Test
-//    public void testAllCellsDie() {
-//        Cell[][] cells = {
-//            {new Cell(true), new Cell(), new Cell(true)}, 
-//            {new Cell(), new Cell(), new Cell()}, 
-//            {new Cell(true), new Cell(), new Cell(true)}
-//        };
-//
-//        World world = new World(cells);
-//
-//        assertEquals(true, world.isAlive(0, 0));
-//        assertEquals(false, world.isAlive(1, 1));
-//
-//        world.setState(StateButton.NEXT);
-//        world.update();
-//        
-//        assertEquals(false, world.isAlive(0, 0));
-//        assertEquals(false, world.isAlive(2, 2));
-//        assertEquals(false, world.isAlive(2, 0));
-//        assertEquals(false, world.isAlive(0, 2));
-//        assertEquals(false, world.isAlive(1, 1));
-//    }
+    @Test
+    public void testAllCellsDie() {
+        Cell[][] cells = {
+            {new Cell(true), new Cell(), new Cell(true)}, 
+            {new Cell(), new Cell(), new Cell()}, 
+            {new Cell(true), new Cell(), new Cell(true)}
+        };
+
+        World world = new World(cells);
+
+        assertEquals(true, world.isAlive(0, 0));
+        assertEquals(false, world.isAlive(1, 1));
+
+        world.setState(StateButton.NEXT);
+        world.update();
+        
+        assertEquals(false, world.isAlive(0, 0));
+        assertEquals(false, world.isAlive(2, 2));
+        assertEquals(false, world.isAlive(2, 0));
+        assertEquals(false, world.isAlive(0, 2));
+        assertEquals(false, world.isAlive(1, 1));
+    }
     
 }

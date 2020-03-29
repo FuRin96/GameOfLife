@@ -1,3 +1,5 @@
+// GitHub https://github.com/FuRin96/GameOfLife
+
 package main;
 
 import java.awt.BorderLayout;
@@ -19,12 +21,12 @@ public class Frame extends JFrame {
 		
 		frame.setLayout(new BorderLayout());
 		buttonPanel = new ButtonPanel();
-		world = new World(125, 70);
+		world = new World(100, 50);
 
 		frame.add(buttonPanel, BorderLayout.SOUTH);
 		frame.add(world, BorderLayout.CENTER);
 
-		// setResizable(false);
+		//frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1280, 800);
 		frame.setLocationRelativeTo(null);

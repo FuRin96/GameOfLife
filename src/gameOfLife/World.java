@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import core.Cell;
 import core.StateButton;
@@ -27,6 +28,7 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 	public World(Cell[][] world) {
 		this.world = world;
 		cols = rows = world.length;
+		tempWorld = world;
 	}
 
 	public World(int cols, int rows) {
@@ -46,15 +48,11 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 		addMouseListener(this);
 		addMouseMotionListener(this);
 
-		state = StateButton.DEFAULT;
+		state = StateButton.STOP;
 	}
 
 	public void setState(StateButton state) {
 		this.state = state;
-	}
-
-	public StateButton getState() {
-		return state;
 	}
 
 	public boolean isAlive(int row, int col) {
@@ -76,11 +74,11 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 					tempWorld[i][j] = new Cell();
 				}
 			}
-			state = StateButton.DEFAULT;
+			state = StateButton.STOP;
 		}
 		this.repaint();
 		try {
-			Thread.sleep(1000 / 15);
+			Thread.sleep(1000 / 10);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -94,7 +92,7 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 				if (world[i][j].getState()) {
 					g2.setColor(Color.BLACK);
 				} else {
-					g2.setColor(Color.WHITE);
+					g2.setColor(Color.LIGHT_GRAY);
 				}
 				g2.fillRect(i * cellSize, j * cellSize, cellSize, cellSize);
 				g2.setColor(Color.GRAY);
@@ -102,7 +100,8 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 			}
 		}
 	}
-
+	
+	// Comprobar la celulas vecinas
 	public int checkCell(int col, int row) {
 		int surrounding = 0;
 		if (col - 1 >= 0 && row - 1 >= 0) {
@@ -148,6 +147,7 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 		return surrounding;
 	}
 
+	// Avanzar por la matriz comprobando las celulas
 	public void prepare() {
 		for (int i = 0; i < world.length; i++) {
 			for (int j = 0; j < world[i].length; j++) {
@@ -163,6 +163,7 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 		}
 	}
 
+	// cambiar el estado de las celulas
 	public void changeCell() {
 		for (int i = 0; i < world.length; i++) {
 			for (int j = 0; j < world[i].length; j++) {
@@ -177,9 +178,9 @@ public class World extends JPanel implements MouseListener, MouseMotionListener 
 			int x = e.getPoint().x / cellSize;
 			int y = e.getPoint().y / cellSize;
 
-			if (world[x][y].getState()) {
+			if (SwingUtilities.isRightMouseButton(e)) {
 				world[x][y].setState(false);
-			} else {
+			} else if (SwingUtilities.isLeftMouseButton(e)){
 				world[x][y].setState(true);
 			}
 		}
